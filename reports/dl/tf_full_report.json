@@ -1,0 +1,150 @@
+{
+  "experiment": "fraud_detection_tensorflow_keras",
+  "run_date": "2026-04-04T13:43:26.927572",
+  "framework": "TensorFlow 2.21.0 / Keras",
+  "n_features": 17,
+  "dataset": "data/transactions_bancaires.csv",
+  "ml_models": {
+    "random_forest": {
+      "name": "Random Forest",
+      "auc_roc": 0.9503,
+      "auc_pr": 0.8861,
+      "f1": 0.9313,
+      "precision": 0.9954,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8928,
+      "cv_auc_std": 0.0174,
+      "tn": 9751,
+      "fp": 1,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 7.46,
+      "description": "Ensemble de 300 arbres de dÃ©cision. Robuste aux outliers et au bruit. class_weight='balanced' compense le dÃ©sÃ©quilibre fraude/lÃ©gitime. Donne directement les feature importances pour SHAP.",
+      "model_hash": "4ee395fd183024e7b2e9016697625ef351e463e82d49d40a2eb1318036547dd5",
+      "model_path": "models/random_forest.pkl"
+    },
+    "gradient_boosting": {
+      "name": "XGBoost",
+      "auc_roc": 0.9468,
+      "auc_pr": 0.8864,
+      "f1": 0.9234,
+      "precision": 0.9775,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8971,
+      "cv_auc_std": 0.0119,
+      "tn": 9747,
+      "fp": 5,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 1.09,
+      "description": "XGBoost avec scale_pos_weight=49 pour gÃ©rer nativement le dÃ©sÃ©quilibre fraude/lÃ©gitime (1000 fraudes vs 49000 lÃ©gitimes). colsample_bytree=0.8 remplace max_features. min_child_weight=10 remplace min_samples_leaf. gamma=1 remplace min_samples_split. eval_metric=aucpr optimise directement l'AUC-PR.",
+      "model_hash": "8375a6869911bb1f16aaee17dbca15b9e60ba785da38e7758ae42c30edda422a",
+      "model_path": "models/gradient_boosting.pkl"
+    },
+    "logistic_regression": {
+      "name": "Logistic Regression",
+      "auc_roc": 0.9336,
+      "auc_pr": 0.8832,
+      "f1": 0.7905,
+      "precision": 0.7209,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8951,
+      "cv_auc_std": 0.0152,
+      "tn": 9668,
+      "fp": 84,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 0.24,
+      "description": "ModÃ¨le linÃ©aire rÃ©gularisÃ© (L2, C=0.1). TrÃ¨s rapide en infÃ©rence â€” adaptÃ© Ã  la contrainte < 100ms du pipeline temps rÃ©el. class_weight='balanced' + scaling StandardScaler obligatoire. Meilleure interprÃ©tabilitÃ© des coefficients (feature importance directe).",
+      "model_hash": "8e1ea545a4db1cc755aa9e8a897425edc044321af8e809886bdc2a3e1db24517",
+      "model_path": "models/logistic_regression.pkl"
+    }
+  },
+  "dl_models": {
+    "mlp": {
+      "auc_roc": 0.9457,
+      "auc_pr": 0.8887,
+      "f1": 0.6976,
+      "precision": 0.5782,
+      "recall": 0.879,
+      "tn": 9593,
+      "fp": 159,
+      "fn": 30,
+      "tp": 218,
+      "name": "MLP (TensorFlow/Keras)",
+      "architecture": "Input(17)→128(BN+ReLU+DO)→64(BN+ReLU+DO)→32(ReLU)→1(Sigmoid)",
+      "train_time_s": 70.6,
+      "epochs": 107,
+      "model_hash": "48c332545ff06bf60fb639d7f37a3624498a2411d870737a516d62f384011ee9"
+    },
+    "autoencoder": {
+      "name": "Autoencoder (TF — anomaly detection)",
+      "auc_pr": 0.8788,
+      "auc_roc": 0.9327,
+      "f1": 0.4554,
+      "precision": 0.3078,
+      "recall": 0.875,
+      "tn": 9264,
+      "fp": 488,
+      "fn": 31,
+      "tp": 217,
+      "reconstruction_threshold": 0.13379508,
+      "architecture": "D→32(BN)→16→8(bottleneck) | 8→16→32→D",
+      "trained_on": "légitimes uniquement",
+      "train_time_s": 97.5,
+      "epochs": 200,
+      "model_hash": "e6a6cd1af1cd347c5d7852b688bdc0a4b43477ee252757839043eb5483544932"
+    },
+    "attention_mlp": {
+      "auc_roc": 0.9373,
+      "auc_pr": 0.8844,
+      "f1": 0.6211,
+      "precision": 0.4802,
+      "recall": 0.879,
+      "tn": 9516,
+      "fp": 236,
+      "fn": 30,
+      "tp": 218,
+      "name": "MLP + Feature Attention (TF/Keras)",
+      "architecture": "FeatureAttention(softmax) × Input → 128(BN+ReLU+DO)→64→32→1",
+      "train_time_s": 69.5,
+      "epochs": 120,
+      "model_hash": "eca2b92640f80876a1358256b09447ed3a53343612852d2ae1a92f1415ce6fa9",
+      "top_attention": [
+        {
+          "rank": 1,
+          "feature": "delta_km",
+          "weight": 0.0737
+        },
+        {
+          "rank": 2,
+          "feature": "ratio_montant_moy",
+          "weight": 0.0696
+        },
+        {
+          "rank": 3,
+          "feature": "montant_mad",
+          "weight": 0.0693
+        },
+        {
+          "rank": 4,
+          "feature": "est_weekend",
+          "weight": 0.0667
+        },
+        {
+          "rank": 5,
+          "feature": "est_etranger",
+          "weight": 0.0663
+        }
+      ]
+    }
+  },
+  "best_dl": "mlp",
+  "autoencoder_threshold": 0.13379508,
+  "deployment": {
+    "primary": "XGBoost (ML) — production temps réel",
+    "anomaly": "Autoencoder (TF) — détection patterns inconnus",
+    "interpret": "MLP+Attention (TF) — explicabilité par feature",
+    "blockchain": "hash SHA-256 → RegisterModel() Hyperledger Fabric"
+  }
+}

@@ -1,0 +1,262 @@
+{
+  "model_key": "gradient_boosting",
+  "model_hash": "8375a6869911bb1f16aaee17dbca15b9e60ba785da38e7758ae42c30edda422a",
+  "explainer": "shap.TreeExplainer",
+  "shap_base_value": -0.842156,
+  "n_samples_explained": 700,
+  "global_importance": [
+    {
+      "rank": 1,
+      "feature": "ratio_montant_moy",
+      "label": "Ratio montant / moyenne client",
+      "mean_abs_shap": 1.322508
+    },
+    {
+      "rank": 2,
+      "feature": "montant_mad",
+      "label": "Montant de la transaction (MAD)",
+      "mean_abs_shap": 0.584511
+    },
+    {
+      "rank": 3,
+      "feature": "nb_tx_1h",
+      "label": "Nb transactions / heure",
+      "mean_abs_shap": 0.567253
+    },
+    {
+      "rank": 4,
+      "feature": "heure",
+      "label": "Heure de la transaction",
+      "mean_abs_shap": 0.471528
+    },
+    {
+      "rank": 5,
+      "feature": "delta_min_last_tx",
+      "label": "Délai depuis dernière tx (min)",
+      "mean_abs_shap": 0.330685
+    },
+    {
+      "rank": 6,
+      "feature": "age_compte_jours",
+      "label": "Ancienneté du compte (jours)",
+      "mean_abs_shap": 0.215523
+    },
+    {
+      "rank": 7,
+      "feature": "age_client",
+      "label": "Âge du client",
+      "mean_abs_shap": 0.204508
+    },
+    {
+      "rank": 8,
+      "feature": "delta_km",
+      "label": "Distance depuis dernière tx (km)",
+      "mean_abs_shap": 0.197377
+    },
+    {
+      "rank": 9,
+      "feature": "est_nouveau_device",
+      "label": "Nouveau device",
+      "mean_abs_shap": 0.136185
+    },
+    {
+      "rank": 10,
+      "feature": "risque_horaire",
+      "label": "Risque horaire (0-3)",
+      "mean_abs_shap": 0.132299
+    }
+  ],
+  "demo_explanations": {
+    "fraude_detectee": {
+      "tx_id": "TX00031491",
+      "client_id": "CLT02481",
+      "timestamp": "2024-11-07 11:42:00",
+      "score_fraude": 0.9997,
+      "zone": "RED",
+      "decision": "FRAUDE",
+      "top_features": [
+        {
+          "feature": "ratio_montant_moy",
+          "label": "Ratio montant / moyenne client",
+          "value": 34.714,
+          "shap_value": 2.689236
+        },
+        {
+          "feature": "montant_mad",
+          "label": "Montant de la transaction (MAD)",
+          "value": 12588.84,
+          "shap_value": 2.02791
+        },
+        {
+          "feature": "heure",
+          "label": "Heure de la transaction",
+          "value": 3.0,
+          "shap_value": 1.517192
+        },
+        {
+          "feature": "risque_horaire",
+          "label": "Risque horaire (0-3)",
+          "value": 3.0,
+          "shap_value": 0.581318
+        },
+        {
+          "feature": "delta_min_last_tx",
+          "label": "Délai depuis dernière tx (min)",
+          "value": 134.6,
+          "shap_value": 0.567599
+        },
+        {
+          "feature": "est_etranger",
+          "label": "Transaction à l'étranger",
+          "value": 1.0,
+          "shap_value": 0.478079
+        },
+        {
+          "feature": "est_nouveau_device",
+          "label": "Nouveau device",
+          "value": 1.0,
+          "shap_value": 0.382454
+        },
+        {
+          "feature": "age_compte_jours",
+          "label": "Ancienneté du compte (jours)",
+          "value": 1184.0,
+          "shap_value": 0.307227
+        }
+      ],
+      "shap_base_value": -0.842156,
+      "model_version": "gradient_boosting_v1.0",
+      "model_hash": "8375a6869911bb1f...",
+      "explication_hash": "d7070aabd8c794d1e339ef9fdc0f1c6a5a0095bb2e15f2865e88125ce8fc4254",
+      "explainer": "shap.TreeExplainer"
+    },
+    "cas_ambigu": {
+      "tx_id": "TX00033454",
+      "client_id": "CLT04138",
+      "timestamp": "2024-12-19 11:40:00",
+      "score_fraude": 0.6271,
+      "zone": "AMBER",
+      "decision": "REVUE_HUMAINE",
+      "top_features": [
+        {
+          "feature": "ratio_montant_moy",
+          "label": "Ratio montant / moyenne client",
+          "value": 2.112,
+          "shap_value": 2.371513
+        },
+        {
+          "feature": "age_compte_jours",
+          "label": "Ancienneté du compte (jours)",
+          "value": 701.0,
+          "shap_value": -0.281314
+        },
+        {
+          "feature": "montant_mad",
+          "label": "Montant de la transaction (MAD)",
+          "value": 243.49,
+          "shap_value": -0.249043
+        },
+        {
+          "feature": "delta_min_last_tx",
+          "label": "Délai depuis dernière tx (min)",
+          "value": 11574.0,
+          "shap_value": -0.179008
+        },
+        {
+          "feature": "delta_km",
+          "label": "Distance depuis dernière tx (km)",
+          "value": 6.27,
+          "shap_value": 0.165105
+        },
+        {
+          "feature": "heure",
+          "label": "Heure de la transaction",
+          "value": 16.0,
+          "shap_value": -0.138904
+        },
+        {
+          "feature": "nb_tx_1h",
+          "label": "Nb transactions / heure",
+          "value": 1.0,
+          "shap_value": -0.135261
+        },
+        {
+          "feature": "type_transaction_enc",
+          "label": "Type de transaction",
+          "value": 4.0,
+          "shap_value": -0.123392
+        }
+      ],
+      "shap_base_value": -0.842156,
+      "model_version": "gradient_boosting_v1.0",
+      "model_hash": "8375a6869911bb1f...",
+      "explication_hash": "6f940f65a4a5b3d58ff27f9e5b527e66910ccea07a7697c509ed074fc75903fa",
+      "explainer": "shap.TreeExplainer"
+    },
+    "transaction_legit": {
+      "tx_id": "TX00027697",
+      "client_id": "CLT00204",
+      "timestamp": "2024-05-24 10:43:00",
+      "score_fraude": 0.001,
+      "zone": "GREEN",
+      "decision": "LEGITIME",
+      "top_features": [
+        {
+          "feature": "ratio_montant_moy",
+          "label": "Ratio montant / moyenne client",
+          "value": 1.942,
+          "shap_value": -2.354973
+        },
+        {
+          "feature": "delta_min_last_tx",
+          "label": "Délai depuis dernière tx (min)",
+          "value": 216577.0,
+          "shap_value": -0.847681
+        },
+        {
+          "feature": "montant_mad",
+          "label": "Montant de la transaction (MAD)",
+          "value": 321.58,
+          "shap_value": -0.567595
+        },
+        {
+          "feature": "age_client",
+          "label": "Âge du client",
+          "value": 69.0,
+          "shap_value": -0.538685
+        },
+        {
+          "feature": "nb_tx_1h",
+          "label": "Nb transactions / heure",
+          "value": 0.0,
+          "shap_value": -0.488562
+        },
+        {
+          "feature": "age_compte_jours",
+          "label": "Ancienneté du compte (jours)",
+          "value": 119.0,
+          "shap_value": -0.427542
+        },
+        {
+          "feature": "heure",
+          "label": "Heure de la transaction",
+          "value": 18.0,
+          "shap_value": -0.377118
+        },
+        {
+          "feature": "delta_km",
+          "label": "Distance depuis dernière tx (km)",
+          "value": 14.32,
+          "shap_value": -0.160564
+        }
+      ],
+      "shap_base_value": -0.842156,
+      "model_version": "gradient_boosting_v1.0",
+      "model_hash": "8375a6869911bb1f...",
+      "explication_hash": "8977e651294ee70edfd726d988e09838b2704a56bb4610203e3878d239907a5d",
+      "explainer": "shap.TreeExplainer"
+    }
+  },
+  "explanation_format": "exact_shap_tree_explainer",
+  "generated_at": "2026-04-04T10:20:38.516876"
+}

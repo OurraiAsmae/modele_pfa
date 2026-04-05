@@ -1,0 +1,42 @@
+{
+  "dataset_name": "transactions_bancaires",
+  "version": "1.0.0",
+  "n_transactions": 50000,
+  "n_fraud": 1240,
+  "n_legit": 48760,
+  "fraud_rate_pct": 2.48,
+  "n_clients": 5000,
+  "sha256": "88fd9f20436ef10616b66e4e44acd793e25f265ea604a5103eb536efae3081a0",
+  "features": [
+    "timestamp",
+    "heure",
+    "jour_semaine",
+    "est_weekend",
+    "montant_mad",
+    "type_transaction",
+    "pays_transaction",
+    "est_etranger",
+    "tx_lat",
+    "tx_lon",
+    "delta_km",
+    "delta_min_last_tx",
+    "nb_tx_1h",
+    "device_type",
+    "est_nouveau_device",
+    "age_client",
+    "segment_revenu",
+    "type_carte",
+    "age_compte_jours",
+    "ratio_montant_moy",
+    "risque_horaire"
+  ],
+  "fraud_patterns": {
+    "none": 247,
+    "usurpation_identite": 212,
+    "phishing": 204,
+    "clonage_carte": 197,
+    "fraude_cni": 194,
+    "test_micro_montants": 186
+  },
+  "generated_at": "2026-04-04T10:18:36.447164"
+}

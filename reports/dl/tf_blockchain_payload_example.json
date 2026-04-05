@@ -1,0 +1,28 @@
+{
+  "tx_id": "TX_DEMO_00000044",
+  "model_version": "tf_attention_mlp_v1.0",
+  "score_fraude": 1.0,
+  "zone": "RED",
+  "decision": "FRAUDE",
+  "top_features": [
+    {
+      "feature": "type_carte_enc",
+      "weight": 0.1833
+    },
+    {
+      "feature": "segment_revenu_enc",
+      "weight": 0.1719
+    },
+    {
+      "feature": "type_transaction_enc",
+      "weight": 0.1332
+    }
+  ],
+  "scores_all_models": {
+    "mlp": 1.0,
+    "attention_mlp": 1.0
+  },
+  "model_hash": "eca2b92640f80876...",
+  "explication_hash": "95076c4443fc7a820575a5f3fc9757fbaf07079b37b6e4e2de09bb21e0ca1d67",
+  "framework": "TensorFlow/Keras"
+}

@@ -1,0 +1,98 @@
+{
+  "experiment_name": "fraud_detection_comparison",
+  "run_date": "2026-04-04T10:19:51.781968",
+  "dataset": {
+    "path": "data/transactions_bancaires.csv",
+    "sha256": "88fd9f20436ef10616b66e4e44acd793e25f265ea604a5103eb536efae3081a0",
+    "n_train": 40000,
+    "n_test": 10000,
+    "features": [
+      "heure",
+      "jour_semaine",
+      "est_weekend",
+      "montant_mad",
+      "est_etranger",
+      "delta_km",
+      "delta_min_last_tx",
+      "nb_tx_1h",
+      "est_nouveau_device",
+      "age_client",
+      "age_compte_jours",
+      "ratio_montant_moy",
+      "risque_horaire",
+      "type_transaction_enc",
+      "device_type_enc",
+      "segment_revenu_enc",
+      "type_carte_enc"
+    ],
+    "n_features": 17
+  },
+  "models": {
+    "random_forest": {
+      "name": "Random Forest",
+      "auc_roc": 0.9503,
+      "auc_pr": 0.8861,
+      "f1": 0.9313,
+      "precision": 0.9954,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8928,
+      "cv_auc_std": 0.0174,
+      "tn": 9751,
+      "fp": 1,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 7.46,
+      "description": "Ensemble de 300 arbres de décision. Robuste aux outliers et au bruit. class_weight='balanced' compense le déséquilibre fraude/légitime. Donne directement les feature importances pour SHAP.",
+      "model_hash": "4ee395fd183024e7b2e9016697625ef351e463e82d49d40a2eb1318036547dd5",
+      "model_path": "models/random_forest.pkl"
+    },
+    "gradient_boosting": {
+      "name": "XGBoost",
+      "auc_roc": 0.9468,
+      "auc_pr": 0.8864,
+      "f1": 0.9234,
+      "precision": 0.9775,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8971,
+      "cv_auc_std": 0.0119,
+      "tn": 9747,
+      "fp": 5,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 1.09,
+      "description": "XGBoost avec scale_pos_weight=49 pour gérer nativement le déséquilibre fraude/légitime (1000 fraudes vs 49000 légitimes). colsample_bytree=0.8 remplace max_features. min_child_weight=10 remplace min_samples_leaf. gamma=1 remplace min_samples_split. eval_metric=aucpr optimise directement l'AUC-PR.",
+      "model_hash": "8375a6869911bb1f16aaee17dbca15b9e60ba785da38e7758ae42c30edda422a",
+      "model_path": "models/gradient_boosting.pkl"
+    },
+    "logistic_regression": {
+      "name": "Logistic Regression",
+      "auc_roc": 0.9336,
+      "auc_pr": 0.8832,
+      "f1": 0.7905,
+      "precision": 0.7209,
+      "recall": 0.875,
+      "cv_auc_mean": 0.8951,
+      "cv_auc_std": 0.0152,
+      "tn": 9668,
+      "fp": 84,
+      "fn": 31,
+      "tp": 217,
+      "train_time_s": 0.24,
+      "description": "Modèle linéaire régularisé (L2, C=0.1). Très rapide en inférence — adapté à la contrainte < 100ms du pipeline temps réel. class_weight='balanced' + scaling StandardScaler obligatoire. Meilleure interprétabilité des coefficients (feature importance directe).",
+      "model_hash": "8e1ea545a4db1cc755aa9e8a897425edc044321af8e809886bdc2a3e1db24517",
+      "model_path": "models/logistic_regression.pkl"
+    }
+  },
+  "best_model": {
+    "key": "gradient_boosting",
+    "name": "XGBoost",
+    "selection_criterion": "AUC-PR (Average Precision Score)",
+    "rationale": "AUC-PR est la métrique prioritaire pour les données déséquilibrées (2% fraude). Elle mesure la qualité des prédictions sur la classe minoritaire (fraude) indépendamment des vrais négatifs (légitimes). Un modèle peut avoir AUC-ROC=0.99 et AUC-PR=0.50 si les faux positifs sont nombreux — ce qui est inacceptable en contexte bancaire."
+  },
+  "deployment_recommendation": {
+    "production": "gradient_boosting",
+    "fallback": "random_forest",
+    "interpretable": "logistic_regression",
+    "note": "En production : Gradient Boosting pour les décisions automatiques. Logistic Regression comme modèle de secours si latence critique (<5ms). Remplacer GBC par XGBClassifier(scale_pos_weight=49) pour +2-3% AUC-PR."
+  }
+}
